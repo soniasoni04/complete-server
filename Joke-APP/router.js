@@ -28,4 +28,24 @@ next(error)
 }
 })
 
+//post jokes
+
+router.post("/jokes", async (req, res, next) => {
+    console.log('you are inside the post request in joke table route')
+    console.log("req-body:", req.body)
+    try {
+        const joke = await Joke.create({
+            type: req.body.type,  
+            setup: req.body.setup, //joke
+            punchline: req.body.punchline
+        })
+        res
+            .status(201)
+            .send(joke)
+    }
+    catch (error) {
+        next(error)
+    }
+})
+
 module.exports = router;
